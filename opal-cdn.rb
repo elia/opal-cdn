@@ -43,3 +43,29 @@ get '/opal/:opal_version/:file_name' do
   ver = OpalVersion.find(params[:opal_version])
   ver[params[:file_name]]
 end
+
+get '/' do
+  <<-HTML
+  <!doctype html>
+  <html>
+  <head>
+    <title>Opal autobuilder</title>
+  </head>
+  <body>
+    <header>
+      <h1>Opal autobuilder</h1>
+    </header>
+
+    <article>
+      path template: /opal/:version/:file_name
+      <br>
+      E.g. <a href="/opal/0.4.4/opal.js">/opal/0.4.4/opal.js</a>
+    </article>
+
+    <footer>
+      © 2013 Elia Schito - MIT License
+    </footer>
+  </body>
+  </html>
+  HTML
+end
