@@ -41,7 +41,12 @@ end
 
 get '/opal/:opal_version/:file_name' do
   ver = OpalVersion.find(params[:opal_version])
-  ver[params[:file_name]]
+  stream do |out|
+    # Keep heroku alive
+    thread = Thread.new { out << ' ' }
+    out << ver[params[:file_name]]
+    thread.join
+  end
 end
 
 get '/' do
